@@ -1,4 +1,18 @@
-# RenewSure — local hackathon application
+# RenewSure
+
+[![Verify RenewSure](https://github.com/karthikrajj/Odoo-x-Make-A-Ton-9.0/actions/workflows/verify.yml/badge.svg)](https://github.com/karthikrajj/Odoo-x-Make-A-Ton-9.0/actions/workflows/verify.yml)
+
+**Connect what should be billed, what was billed and what actually reached the bank.**
+
+Built for Odoo x Make-A-Ton 9.0 as a standalone subscription management platform.
+
+- **Rehearse:** preview the billing cycle and resolve flagged checks.
+- **Prove:** explain invoice calculations and verify billing invariants.
+- **Reconcile:** compare expected charges, invoices and received payments, then resolve discrepancies.
+
+[Judge walkthrough](JUDGING.md) · [Requirements](ACCEPTANCE.md) · [Team](TEAM.md) · [Contributing](CONTRIBUTING.md)
+
+Requirements: Python 3.12. Node 24 is needed only for development checks.
 
 ## Start
 Double-click Start-RenewSure.cmd, or run `python server.py`. Keep the server running and open http://127.0.0.1:8766.
@@ -30,7 +44,7 @@ Automatic billing is off by default for a controlled demo. Enable it under Billi
 ## Verification
 Run `python verify_all.py` for the complete acceptance suite. See ACCEPTANCE.md for the requirement-by-requirement result.
 
-`python -m unittest -v` runs 93 business and configuration regression tests.
+`python -m unittest -v` runs 94 business, configuration and presentation regression tests.
 `python verify_http.py` uses a disposable database and local server for auth checks and ten complete API rehearsals.
 Results are written under `reports/`. The suite includes ten full API journeys, a 9,459-invoice batch, rollback/retry checks and concurrent reads against 10,050 subscriptions. These are local measurements, not production capacity guarantees. Frontend handlers run against a DOM adapter; full browser/mobile visual verification remains outstanding.
 

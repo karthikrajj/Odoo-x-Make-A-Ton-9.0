@@ -15,7 +15,7 @@ const $ = (s) => document.querySelector(s),
     ),
   M = (n) =>
     n == null
-      ? 'â€”'
+      ? '—'
       : new Intl.NumberFormat('en-IN', {
           style: 'currency',
           currency: 'INR',
@@ -127,7 +127,7 @@ function filters(statuses = [], dates = false) {
   );
 }
 function pager(data) {
-  return `<div class="toolbar">${button('Previous', 'prev', false, data.page <= 1)}<span>Page ${data.page} Â· ${data.total.toLocaleString()} records</span>${button('Next', 'next', false, data.page * 30 >= data.total)}</div>`;
+  return `<div class="toolbar">${button('Previous', 'prev', false, data.page <= 1)}<span>Page ${data.page} · ${data.total.toLocaleString()} records</span>${button('Next', 'next', false, data.page * 30 >= data.total)}</div>`;
 }
 function auth(mode = 'login') {
   me = null;
@@ -193,14 +193,14 @@ async function render() {
         ];
   if (!nav.includes(state.view)) state.view = 'dashboard';
   $('#app').innerHTML =
-    `<aside><h2>â—ˆ RenewSure</h2><small>BRIGHTLOOP SOFTWARE</small><nav>${nav.map((n) => `<button type="button" onclick="navigate('${n}')" class="${state.view === n ? 'active' : ''}" ${state.view === n ? 'aria-current="page"' : ''}>${names[n]}</button>`).join('')}</nav><p class="foot">LOCAL DEMO<br>Persistent data Â· INR<br>${E(me.mail_mode)}</p></aside><main><header><div><span class="eyebrow">Revenue workspace / ${E(me.role)}</span><h1>${{ dashboard: 'Your revenue, in focus.', reconcile: 'Follow the money.', rehearsal: 'Before billing day.' }[state.view] || names[state.view]}</h1></div><div class="toolbar"><span>${E(me.name)}<br><small>${me.clock_mode === 'live' ? 'Live date' : 'Demo date'} ${me.clock}</small></span>${me.role === 'admin' ? button('Billing settings', 'clock') : ''}${button('Sign out', 'logout')}</div></header><section id="content" aria-live="polite"><div class="loading">Loading workspaceâ€¦</div></section></main>`;
+    `<aside><h2>◈ RenewSure</h2><small>BRIGHTLOOP SOFTWARE</small><nav>${nav.map((n) => `<button type="button" onclick="navigate('${n}')" class="${state.view === n ? 'active' : ''}" ${state.view === n ? 'aria-current="page"' : ''}>${names[n]}</button>`).join('')}</nav><p class="foot">LOCAL DEMO<br>Persistent data · INR<br>${E(me.mail_mode)}</p></aside><main><header><div><span class="eyebrow">Revenue workspace / ${E(me.role)}</span><h1>${{ dashboard: 'Your revenue, in focus.', reconcile: 'Follow the money.', rehearsal: 'Before billing day.' }[state.view] || names[state.view]}</h1></div><div class="toolbar"><span>${E(me.name)}<br><small>${me.clock_mode === 'live' ? 'Live date' : 'Demo date'} ${me.clock}</small></span>${me.role === 'admin' ? button('Billing settings', 'clock') : ''}${button('Sign out', 'logout')}</div></header><section id="content" aria-live="polite"><div class="loading">Loading workspace…</div></section></main>`;
   let start = performance.now();
   try {
     const html = await viewHTML();
     if (seq !== serial) return;
     $('#content').innerHTML =
       html +
-      `<p class="foot muted">Data + browser rendering: ${Math.round(performance.now() - start)} ms Â· ${current.server_ms ?? 'â€”'} ms server processing Â· this request only</p>`;
+      `<p class="foot muted">Data + browser rendering: ${Math.round(performance.now() - start)} ms · ${current.server_ms ?? '—'} ms server processing · this request only</p>`;
   } catch (e) {
     if (seq === serial && $('#content'))
       $('#content').innerHTML = panel(
@@ -216,8 +216,8 @@ async function viewHTML() {
     const max = Math.max(...Object.values(r.aging), 1);
     return `<p>A clear view of commitments, invoices and collected payments.</p>${filters([], true)}<div class="cards">${[
       ['Monthly recurring revenue', r.mrr, 'Active contract value, before tax and promotions'],
-      ['Annual run rate', r.arr, 'MRR Ã— 12'],
-      ['Invoiced in period', r.invoiced, `${r.from} to ${r.to} Â· confirmed invoices`],
+      ['Annual run rate', r.arr, 'MRR × 12'],
+      ['Invoiced in period', r.invoiced, `${r.from} to ${r.to} · confirmed invoices`],
       ['Collected in period', r.received, 'Allocated payments by bank date'],
     ]
       .map(
@@ -226,7 +226,7 @@ async function viewHTML() {
       )
       .join(
         '',
-      )}</div><div class="flow"><div><small>ACTIVE SUBSCRIPTIONS</small><strong>${r.active.toLocaleString()}</strong></div><div><small>OUTSTANDING Â· ALL PERIODS</small><strong>${M(r.outstanding)}</strong></div><div><small>DRAFT INVOICE VALUE</small><strong>${M(r.drafts)}</strong></div></div><div class="columns">${panel(
+      )}</div><div class="flow"><div><small>ACTIVE SUBSCRIPTIONS</small><strong>${r.active.toLocaleString()}</strong></div><div><small>OUTSTANDING · ALL PERIODS</small><strong>${M(r.outstanding)}</strong></div><div><small>DRAFT INVOICE VALUE</small><strong>${M(r.drafts)}</strong></div></div><div class="columns">${panel(
       'MRR movement in selected period',
       `<p>Contract value; excludes taxes and temporary discounts. Historical opening seed is explicitly labelled.</p><div class="waterfall">${Object.entries(
         r.waterfall,
@@ -238,14 +238,14 @@ async function viewHTML() {
         .join('')}</div>`,
     )}${panel(
       'Receivables aging',
-      `<p><strong>${r.overdue_count} overdue invoices Â· ${M(r.overdue_total)}</strong></p>` +
+      `<p><strong>${r.overdue_count} overdue invoices · ${M(r.overdue_total)}</strong></p>` +
         Object.entries(r.aging)
           .map(
             ([k, n]) =>
               `<div class="age"><div class="between"><span>${k}</span><strong>${M(n)}</strong></div><meter min="0" max="${max}" value="${n}">${M(n)}</meter></div>`,
           )
           .join(''),
-    )}</div>${me.role !== 'customer' ? panel('Resolve the next gap', `<p>Work through expected charges, invoice records and bank allocations together.</p>${button('Open reconciliation â†’', 'go:reconcile', true)}`) : ''}`;
+    )}</div>${me.role !== 'customer' ? panel('Resolve the next gap', `<p>Work through expected charges, invoice records and bank allocations together.</p>${button('Open reconciliation →', 'go:reconcile', true)}`) : ''}`;
   }
   if (['subscriptions', 'invoices', 'reconcile', 'bank'].includes(v)) {
     let r = (current = await api(v + '?' + params()));
@@ -303,7 +303,7 @@ async function viewHTML() {
         `<p>The same billing period, followed from expected charge to invoice to allocated payment. Bank rows show only unallocated funds.</p>` +
         toolbar +
         panel(
-          'Expected â†’ Invoiced â†’ Received',
+          'Expected → Invoiced → Received',
           table(
             ['Customer / period', 'Expected', 'Invoiced', 'Received', 'Discrepancy', 'Next action'],
             r.rows.map(
@@ -323,7 +323,7 @@ async function viewHTML() {
             ['Transaction / date', 'Customer', 'Available', 'Suggested invoice / evidence', ''],
             r.rows.map(
               (b) =>
-                `<tr><td>#${b.id} Â· ${E(b.reference)}<br>${b.date}</td><td>${E(b.customer)}</td><td>${M(b.available)}</td><td>${b.suggestions.map((s) => `<div class="suggestion">${pill(s.confidence)} INV-${s.id} Â· ${M(s.amount)}<br><small>${E(s.reason)}</small>${button('Review match', `match:${b.id}:${s.id}:${s.amount}`)}</div>`).join('') || 'No reliable candidate'}</td><td>${button('Manual allocation', 'allocate:' + b.id)}</td></tr>`,
+                `<tr><td>#${b.id} · ${E(b.reference)}<br>${b.date}</td><td>${E(b.customer)}</td><td>${M(b.available)}</td><td>${b.suggestions.map((s) => `<div class="suggestion">${pill(s.confidence)} INV-${s.id} · ${M(s.amount)}<br><small>${E(s.reason)}</small>${button('Review match', `match:${b.id}:${s.id}:${s.amount}`)}</div>`).join('') || 'No reliable candidate'}</td><td>${button('Manual allocation', 'allocate:' + b.id)}</td></tr>`,
             ),
           ) + pager(r),
         )
@@ -341,7 +341,7 @@ async function viewHTML() {
           ['Reference / date', 'Customer', 'Method', 'Amount', 'Unallocated', 'Note / invoices'],
           r.rows.map(
             (b) =>
-              `<tr><td>#${b.id} Â· ${E(b.reference)}<br>${b.date}</td><td>${E(b.customer)}</td><td>${E(b.method)}</td><td>${M(b.amount)}</td><td>${M(b.available)}</td><td>${E(b.note)}<div>${b.allocations.map((a) => button('INV-' + a.invoice_id + ' Â· ' + M(a.amount), 'invoice:' + a.invoice_id)).join('')}</div></td></tr>`,
+              `<tr><td>#${b.id} · ${E(b.reference)}<br>${b.date}</td><td>${E(b.customer)}</td><td>${E(b.method)}</td><td>${M(b.amount)}</td><td>${M(b.available)}</td><td>${E(b.note)}<div>${b.allocations.map((a) => button('INV-' + a.invoice_id + ' · ' + M(a.amount), 'invoice:' + a.invoice_id)).join('')}</div></td></tr>`,
           ),
         ) + pager(r),
       )
@@ -351,7 +351,7 @@ async function viewHTML() {
     let r = (current = await api('preview'));
     revision = r.revision;
     return (
-      `<p>Read-only forecast. Execution rechecks the data revision, catches up every due period and creates draft invoices.</p><div class="cards"><div class="card"><small>Invoice count</small><strong>+${r.count.toLocaleString()}</strong></div><div class="card"><small>Draft value added</small><strong>${M(r.total)}</strong></div><div class="card"><small>Billing-only MRR change</small><strong>â‚¹0</strong><small>Expired contract closure is logged separately</small></div><div class="card"><small>Ledger checks passed</small><strong>${r.checks.filter((c) => c.passed).length} / ${r.checks.length}</strong><small>${r.skip_count} explained skips</small></div></div><div class="toolbar">${button('Approve billing run', 'run', true, (!r.count && !r.expired.length) || r.checks.some((c) => !c.passed))}${button('Refresh rehearsal', 'refresh')}</div>` +
+      `<p>Read-only forecast. Execution rechecks the data revision, catches up every due period and creates draft invoices.</p><div class="cards"><div class="card"><small>Invoice count</small><strong>+${r.count.toLocaleString()}</strong></div><div class="card"><small>Draft value added</small><strong>${M(r.total)}</strong></div><div class="card"><small>Billing-only MRR change</small><strong>₹0</strong><small>Expired contract closure is logged separately</small></div><div class="card"><small>Ledger checks passed</small><strong>${r.checks.filter((c) => c.passed).length} / ${r.checks.length}</strong><small>${r.skip_count} explained skips</small></div></div><div class="toolbar">${button('Approve billing run', 'run', true, (!r.count && !r.expired.length) || r.checks.some((c) => !c.passed))}${button('Refresh rehearsal', 'refresh')}</div>` +
       panel(
         'First 30 proposed invoices',
         table(
@@ -363,7 +363,7 @@ async function viewHTML() {
         ),
       ) +
       panel(
-        'Explained skips Â· first 30',
+        'Explained skips · first 30',
         table(
           ['Subscription', 'Customer', 'Reason'],
           r.skips.map(
@@ -383,7 +383,7 @@ async function viewHTML() {
           ['Invoice / customer', 'Overdue', 'Outstanding', 'Priority score', ''],
           r.rows.map(
             (i) =>
-              `<tr><td>INV-${i.id} Â· ${E(i.customer)}</td><td>${i.days} days</td><td>${M(i.balance)}</td><td>${i.score}<br><small>2 Ã— days (cap 90) + â‚¹100 units (cap 100)</small></td><td>${button('Review', 'invoice:' + i.id)}</td></tr>`,
+              `<tr><td>INV-${i.id} · ${E(i.customer)}</td><td>${i.days} days</td><td>${M(i.balance)}</td><td>${i.score}<br><small>2 × days (cap 90) + ₹100 units (cap 100)</small></td><td>${button('Review', 'invoice:' + i.id)}</td></tr>`,
           ),
         ),
       ) +
@@ -422,7 +422,7 @@ async function viewHTML() {
         ),
       ) +
       panel(
-        'Audit trail Â· latest 50',
+        'Audit trail · latest 50',
         r.audit.map((a) => `<p><small>${a.at}</small><br>${E(a.event)}</p>`).join(''),
       )
     );
@@ -469,13 +469,13 @@ async function viewHTML() {
           x.auto_close ? 'Auto close' : '',
         ]
           .filter(Boolean)
-          .join(' Â· '),
+          .join(' · '),
       ],
       taxes: [x.name, x.rate / 100 + '%', x.active ? 'Active' : 'Inactive'],
       discounts: [
         x.name,
         x.kind === 'fixed' ? M(x.value) : x.value / 100 + '%',
-        x.start + ' â†’ ' + x.end,
+        x.start + ' → ' + x.end,
         x.used + ' / ' + x.limit_uses,
       ],
       templates: [
@@ -507,7 +507,7 @@ function lineRow(l = {}) {
   return `<div class="line-row"><input type="hidden" name="line_id" value="${l.id || ''}">${select('product_id', 'Product', opts('products'), l.product_id)}${select('variant_id', 'Variant', variants, l.variant_id || 0)}${field('qty', 'Quantity', 'number', l.qty || 1)}${select('tax_id', 'Tax rule', opts('taxes'), l.tax_id || (catalogs.taxes || []).find((t) => t.rate === l.tax_rate)?.id || (catalogs.taxes || []).find((t) => t.rate === catalogs.plans?.[0]?.tax)?.id)}${button('Remove', 'remove-line')}</div>`;
 }
 function linesEditor(lines = [{}]) {
-  return `<div class="line-editor"><h3>Product lines</h3><p>The plan sets the first productâ€™s unit price. Its variant addition is added. Additional products use their catalog prices.</p><div id="lines">${lines.map(lineRow).join('')}</div>${button('Add product line', 'add-line')}</div>`;
+  return `<div class="line-editor"><h3>Product lines</h3><p>The plan sets the first product’s unit price. Its variant addition is added. Additional products use their catalog prices.</p><div id="lines">${lines.map(lineRow).join('')}</div>${button('Add product line', 'add-line')}</div>`;
 }
 function editor(type, x = {}) {
   editId = x.id || null;
@@ -661,26 +661,26 @@ async function subscription(id) {
   if (me.role === 'customer' && ['Draft', 'Quotation', 'Confirmed'].includes(s.state)) allowed = [];
   modal(
     'SUB-' + id,
-    `<p>${E(s.customer)} Â· ${pill(s.state)} Â· ${E(s.email)}</p><p>Start ${s.start_date} Â· Expiry ${s.expiry || 'open ended'} Â· Payment terms ${s.terms_days} days</p>${table(
+    `<p>${E(s.customer)} · ${pill(s.state)} · ${E(s.email)}</p><p>Start ${s.start_date} · Expiry ${s.expiry || 'open ended'} · Payment terms ${s.terms_days} days</p>${table(
       ['Product', 'Quantity', 'Unit price', 'Discount', 'Tax', 'Amount'],
       s.lines.map(
         (l) =>
-          `<tr><td>${E(l.description)}</td><td>${l.qty}</td><td>${M(l.unit_price)}</td><td>âˆ’${M(l.discount)}</td><td>${M(l.tax)} (${l.tax_rate / 100}%)</td><td>${M(l.total)}</td></tr>`,
+          `<tr><td>${E(l.description)}</td><td>${l.qty}</td><td>${M(l.unit_price)}</td><td>−${M(l.discount)}</td><td>${M(l.tax)} (${l.tax_rate / 100}%)</td><td>${M(l.total)}</td></tr>`,
       ),
-    )}<p>Plan: ${E(s.plan_name)} Â· Next calculation for ${s.due}. Subtotal ${M(s.calculation.subtotal)} âˆ’ discount ${M(s.calculation.discount)} + tax ${M(s.calculation.tax)} = <strong>${M(s.calculation.total)}</strong></p><div class="toolbar">${allowed.map((t) => button({ Quotation: 'Prepare quotation', Confirmed: 'Confirm quotation', Active: s.state === 'Closed' ? 'Renew' : s.state === 'Paused' ? 'Resume' : 'Activate', Paused: 'Pause', Closed: 'Close' }[t], `transition:${id}:${t}`)).join('')}${me.role !== 'customer' ? button('Edit future contract', 'sub-edit:' + id) : ''}</div>`,
+    )}<p>Plan: ${E(s.plan_name)} · Next calculation for ${s.due}. Subtotal ${M(s.calculation.subtotal)} − discount ${M(s.calculation.discount)} + tax ${M(s.calculation.tax)} = <strong>${M(s.calculation.total)}</strong></p><div class="toolbar">${allowed.map((t) => button({ Quotation: 'Prepare quotation', Confirmed: 'Confirm quotation', Active: s.state === 'Closed' ? 'Renew' : s.state === 'Paused' ? 'Resume' : 'Activate', Paused: 'Pause', Closed: 'Close' }[t], `transition:${id}:${t}`)).join('')}${me.role !== 'customer' ? button('Edit future contract', 'sub-edit:' + id) : ''}</div>`,
   );
 }
 async function invoice(id) {
   let i = await api('invoice?id=' + id);
   modal(
     'Invoice INV-' + id,
-    `<p><b>${E(i.customer)}</b> Â· ${E(i.email)} Â· ${pill(i.state)}</p><p>Billing period ${i.period} Â· Due ${i.due_date} ${i.disputed ? 'Â· Collection on hold (disputed)' : ''}</p>${table(
-      ['Product', 'Qty Ã— unit price', 'Discount', 'Tax', 'Total'],
+    `<p><b>${E(i.customer)}</b> · ${E(i.email)} · ${pill(i.state)}</p><p>Billing period ${i.period} · Due ${i.due_date} ${i.disputed ? '· Collection on hold (disputed)' : ''}</p>${table(
+      ['Product', 'Qty × unit price', 'Discount', 'Tax', 'Total'],
       i.lines.map(
         (l) =>
-          `<tr><td>${E(l.description)}</td><td>${l.qty} Ã— ${M(l.unit_price)}</td><td>âˆ’${M(l.discount)}</td><td>${M(l.tax)}</td><td>${M(l.total)}</td></tr>`,
+          `<tr><td>${E(l.description)}</td><td>${l.qty} × ${M(l.unit_price)}</td><td>−${M(l.discount)}</td><td>${M(l.tax)}</td><td>${M(l.total)}</td></tr>`,
       ),
-    )}<div class="flow"><div><small>Total</small><strong>${M(i.total)}</strong></div><div><small>Received</small><strong>${M(i.paid)}</strong></div><div><small>Outstanding</small><strong>${M(i.balance)}</strong></div></div><p>Why this amount: ${M(i.subtotal)} subtotal âˆ’ ${M(i.discount)} discounts + ${M(i.tax)} tax = ${M(i.total)}. Calculations are preserved from invoice creation.</p><div class="toolbar"><a class="button-link" target="_blank" href="/api/invoice.pdf?id=${id}">Open printable PDF â†—</a>${me.role !== 'customer' ? `${i.state === 'Draft' ? button('Confirm invoice', `inv:confirm:${id}`, true) : ''}${['Confirmed', 'Paid'].includes(i.state) ? button('Queue email', `inv:send:${id}`) : ''}${i.state === 'Confirmed' && i.balance > 0 ? button('Record payment', 'payment:' + id, true) + button(i.disputed ? 'Release collection hold' : 'Mark disputed', `inv:dispute:${id}`) + button('Queue reminder', `inv:remind:${id}`) : ''}${!i.paid && i.state !== 'Cancelled' ? button('Cancel invoice', `inv:cancel:${id}`) : ''}` : ''}</div>`,
+    )}<div class="flow"><div><small>Total</small><strong>${M(i.total)}</strong></div><div><small>Received</small><strong>${M(i.paid)}</strong></div><div><small>Outstanding</small><strong>${M(i.balance)}</strong></div></div><p>Why this amount: ${M(i.subtotal)} subtotal − ${M(i.discount)} discounts + ${M(i.tax)} tax = ${M(i.total)}. Calculations are preserved from invoice creation.</p><div class="toolbar"><a class="button-link" target="_blank" href="/api/invoice.pdf?id=${id}">Open printable PDF ↗</a>${me.role !== 'customer' ? `${i.state === 'Draft' ? button('Confirm invoice', `inv:confirm:${id}`, true) : ''}${['Confirmed', 'Paid'].includes(i.state) ? button('Queue email', `inv:send:${id}`) : ''}${i.state === 'Confirmed' && i.balance > 0 ? button('Record payment', 'payment:' + id, true) + button(i.disputed ? 'Release collection hold' : 'Mark disputed', `inv:dispute:${id}`) + button('Queue reminder', `inv:remind:${id}`) : ''}${!i.paid && i.state !== 'Cancelled' ? button('Cancel invoice', `inv:cancel:${id}`) : ''}` : ''}</div>`,
   );
 }
 async function action(a, b) {
@@ -933,7 +933,7 @@ document.addEventListener('change', async (e) => {
     try {
       if (file.size > 2000000) throw Error('Maximum CSV size is 2 MB');
       let r = await api('import', { csv: await file.text() });
-      notice(`${r.imported} imported Â· ${r.duplicates} duplicates skipped`);
+      notice(`${r.imported} imported · ${r.duplicates} duplicates skipped`);
       await render();
     } catch (err) {
       $('#upload-error').textContent = err.message;
