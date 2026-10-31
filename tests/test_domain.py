@@ -41,6 +41,30 @@ class RenewSureTests(unittest.TestCase):
     def call(self, path, data=None, user=ADMIN, q=None):
         return s.handle(self.c, path, data, user, q or {})
 
+    def test_payment_history_batches_allocation_queries(self):
+        invoice = self.inv()
+        for number in range(30):
+            self.call(
+                "payments",
+                {
+                    "invoice_id": invoice["id"],
+                    "amount": 1,
+                    "method": "UPI",
+                    "date": "2026-10-31",
+                    "reference": f"batch-{number}",
+                },
+            )
+        queries = []
+        self.c.set_trace_callback(queries.append)
+        try:
+            result = s.payment_records(self.c, ADMIN, {})
+        finally:
+            self.c.set_trace_callback(None)
+        self.assertEqual(len(result["rows"]), 30)
+        selects = [sql for sql in queries if sql.lstrip().upper().startswith("SELECT")]
+        self.assertEqual(len(selects), 3)
+        self.assertTrue(all(len(row["allocations"]) == 1 for row in result["rows"]))
+
     def sub(self, **over):
         v = {
             "customer": "Test Account",

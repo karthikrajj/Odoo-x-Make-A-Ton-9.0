@@ -44,7 +44,7 @@ Automatic billing is off by default for a controlled demo. Enable it under Billi
 ## Verification
 Run `python verify_all.py` for the complete acceptance suite. See ACCEPTANCE.md for the requirement-by-requirement result.
 
-`python -m unittest -v` runs 94 business, configuration and presentation regression tests.
+`python -m unittest -v` runs 95 business, configuration, presentation and performance regression tests.
 `python verify_http.py` uses a disposable database and local server for auth checks and ten complete API rehearsals.
 Results are written under `reports/`. The suite includes ten full API journeys, a 9,459-invoice batch, rollback/retry checks and concurrent reads against 10,050 subscriptions. These are local measurements, not production capacity guarantees. Frontend handlers run against a DOM adapter; full browser/mobile visual verification remains outstanding.
 

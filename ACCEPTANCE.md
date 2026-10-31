@@ -4,7 +4,7 @@ The implementation covers all 27 grouped functional requirements below. The comb
 
 ## Results
 
-- 94 backend/configuration/presentation tests passed.
+- 95 backend/configuration/presentation/performance tests passed.
 - 12 JavaScript form regression checks passed, including reproduction of the original form.id collision.
 - Actual frontend handlers completed 75 HTTP requests against an isolated database: catalog, templates, subscription creation/editing, activation, invoicing, payments, CSV allocation, email queue and customer views.
 - Ten complete API demo journeys passed.

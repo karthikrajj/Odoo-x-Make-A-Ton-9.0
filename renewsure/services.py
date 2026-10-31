@@ -945,13 +945,23 @@ def payment_records(c, user, q):
         "SELECT b.* FROM bank b" + where + " ORDER BY b.id DESC LIMIT 30 OFFSET ?",
         args + [(page - 1) * 30],
     )
-    for b in records:
-        alloc = d.rows(
+    allocations = {}
+    if records:
+        bank_ids = [b["id"] for b in records]
+        placeholders = ",".join("?" for _ in bank_ids)
+        for allocation in d.rows(
             c,
-            "SELECT a.invoice_id,a.amount,i.customer,i.email FROM allocations a JOIN invoices i ON i.id=a.invoice_id WHERE bank_id=?"
-            + (" AND i.email=?" if customer else ""),
-            [b["id"]] + ([user["email"]] if customer else []),
-        )
+            "SELECT a.bank_id,a.invoice_id,a.amount,i.customer,i.email FROM allocations a JOIN invoices i ON i.id=a.invoice_id WHERE a.bank_id IN ("
+            + placeholders
+            + ")"
+            + (" AND i.email=?" if customer else "")
+            + " ORDER BY a.rowid",
+            bank_ids + ([user["email"]] if customer else []),
+        ):
+            bank_id = allocation.pop("bank_id")
+            allocations.setdefault(bank_id, []).append(allocation)
+    for b in records:
+        alloc = allocations.get(b["id"], [])
         b["allocations"] = alloc
         if customer:
             b["amount"] = sum((a["amount"] for a in alloc))
