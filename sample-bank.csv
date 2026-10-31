@@ -1,0 +1,3 @@
+reference,customer,amount,date,method
+DEMO-NEFT-1001,Malabar Design 0001,1180.00,2026-10-31,NEFT
+DEMO-UPI-1002,Kochi Cloud 0002,1500.00,2026-10-31,UPI

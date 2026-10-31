@@ -23,14 +23,22 @@ The public local mailbox is removed. Gmail SMTP delivers password reset links, i
 A real connection test was accepted by Gmail and recorded as Sent; the user confirmed receipt in Gmail Inbox. Old demo queue records and synthetic recipients are suppressed.
 
 ## Billing policies
-Money is stored in integer paise, rates in basis points. Discounts apply before tax; each line rounds tax to the nearest paise. A fixed discount is apportioned proportionally across eligible lines, with remainder on the last eligible line. Usage is consumed when a draft invoice is created, and remains consumed on cancellation. Cancelled periods are not automatically reissued. Resume/renew starts a new cycle on the demo date, with no proration. Existing invoice prices never change when catalog prices change. MRR excludes taxes and temporary promotions; it is not recognized accounting revenue.
+Money is stored in integer paise, rates in basis points. Discounts apply before tax; each line rounds tax to the nearest paise. A fixed discount is apportioned proportionally across eligible lines, with remainder on the last eligible line. Usage is consumed when a draft invoice is created, and remains consumed on cancellation. Cancelled periods are not automatically reissued. Resume/renew starts a new cycle on the demo date, with no proration. Existing invoice prices never change when catalog prices change. Existing contract lines and billing frequencies are snapshotted; choose explicit repricing to use current catalog prices on future invoices. MRR excludes taxes and temporary promotions; it is not recognized accounting revenue.
 
-Automatic billing is off by default for a controlled demo. Enable it under Billing settings. Choose Demo or Live clock; Live follows the current India date. The scheduler runs every 30 seconds while the server is running and catches up missed periods. Reminders use the selected clock and queue only the latest eligible stage on catch-up.
+Automatic billing is off by default for a controlled demo. Enable it under Billing settings. Choose Demo or Live clock; Live follows the current India date. The scheduler runs every 30 seconds while the server is running and catches up missed periods. Plan-controlled expiry closing runs even when automatic invoice generation is off; earned pre-expiry periods remain recoverable. Reminders use the selected clock and queue only the latest eligible stage on catch-up.
 
 ## Verification
-`python -m unittest -v` runs 51 domain tests.
+Run `python verify_all.py` for the complete acceptance suite. See ACCEPTANCE.md for the requirement-by-requirement result.
+
+`python -m unittest -v` runs 93 business and configuration regression tests.
 `python verify_http.py` uses a disposable database and local server for auth checks and ten complete API rehearsals.
-See verification.json for measured results. All sampled HTTP endpoints were below two seconds with 10,050 seeded subscriptions. The latest four-client test covered 34 requests with a maximum of 1,055.86 ms; see performance.json. This is a local measurement, not a production load guarantee. Browser validation covered dashboard rendering, subscription form validation and template creation; the latest full browser/mobile review remains outstanding because computer-use could not reliably access the browser. A rendered PDF was visually reviewed.
+Results are written under `reports/`. The suite includes ten full API journeys, a 9,459-invoice batch, rollback/retry checks and concurrent reads against 10,050 subscriptions. These are local measurements, not production capacity guarantees. Frontend handlers run against a DOM adapter; full browser/mobile visual verification remains outstanding.
+
+Run `ruff check .`, `ruff format --check .`, and the pinned development tools `npm exec --yes --package=eslint@10.14.0 -- eslint static tests` and `npm exec --yes --package=prettier@3.6.2 -- prettier --check static tests/*.cjs eslint.config.mjs`. No npm runtime dependencies or package installation is required to run the app. Python and JavaScript are not statically typed; compilation and lint checks do not constitute a static type check.
+
+Run `python scripts/check_repository.py` for import, cycle and secret checks. Run `python scripts/build_release.py` for an allowlisted ZIP release, excluding credentials and live data, with extracted bootstrap verification.
 
 ## Files and scope
-server.py: HTTP/session layer; domain.py: money/billing; services.py: workflows; legacy.py: initial schema/seed; static/: frontend. SQLite data persists in renewsure.db. backups/ contains a pre-upgrade copy. No public deployment, live bank feeds or GST compliance certification is included. Production hosting requires hardened deployment, real email, security review and operational backups.
+`server.py` is the stable launcher. `renewsure/` separates configuration, database/schema, seed data, security, billing, workflows, documents, delivery and HTTP handling. `static/` contains the frontend; `tests/` contains regression checks; `scripts/` contains repository/release tools; `reports/` holds generated evidence. SQLite data persists in `renewsure.db`; recovery copies in `backups/` are preserved.
+
+This remains a local hackathon application. Public hosting needs a hardened server/reverse proxy, HTTPS, review of seeded demo accounts, deployment secret management and operational backups. Live bank feeds and GST compliance certification are outside scope. See CLEANUP.md for the cleanup results and remaining review items.

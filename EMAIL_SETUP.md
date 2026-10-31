@@ -10,4 +10,4 @@ The public demo mailbox is removed. Old local-demo messages and addresses ending
 
 Waiting for email setup means configuration is missing. Queued means awaiting the worker. Sent means the SMTP server accepted the message; inbox placement is controlled by the recipient provider. Delivery needs review means a send attempt had an uncertain outcome and will not automatically be retried, avoiding accidental duplicates. A server interrupted in Sending also needs review.
 
-Do not commit .env or share its contents. Google password entry and account setup must be completed by the account owner. No Gmail credentials were provided during development; actual inbox receipt remains to be verified after setup.
+Do not commit .env or share its contents. Google password entry and account setup must be completed by the account owner. The current local installation has a user-confirmed Gmail connection test. A new installation must configure its own sender and verify inbox receipt.

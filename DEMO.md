@@ -5,9 +5,9 @@
 3. Reconciliation: filter the customer. Show Due, not invoiced and create its draft. Alternatively use Billing rehearsal for a whole-cycle preview.
 4. Open the invoice, explain subtotal/discount/tax, confirm, then open its PDF.
 5. Record a partial UPI payment. Show the outstanding balance in Reconciliation. Import a CSV referencing INV-number, review the suggestion and approve the remaining allocation.
-6. Show Paid in the customer portal, invoice delivery in the local mailbox, and verification checks/audit.
+6. Show Paid in the customer portal, invoice delivery status in Email delivery, and verification checks/audit.
 7. For an unpaid invoice, demonstrate reminder scheduling and dispute hold. End on the three-way ledger.
 
 Use `python fresh_demo.py` to create an isolated seeded database and launcher without overwriting existing data. Start its launcher on port 8767. Each new demo is independent.
 
-For password reset: sign out, choose Forgot password, submit a registered demo email, open Demo mailbox for that address, follow the single-use link. This is local test delivery, not an external email service.
+For password reset: sign out, choose Forgot password, submit a registered real email, open that recipient’s Gmail inbox and follow the single-use link. Seeded synthetic addresses are suppressed.

@@ -1,9 +1,7 @@
 # Delivery status
 
-Implemented: full catalog/plan/discount configuration, subscription lifecycle and line amounts, atomic recurring billing, live/demo clock, payment history and allocations, bank matching, reports, Gmail reset/invoice/reminder delivery and audit.
+All 27 grouped PS functional requirements are implemented and their automated acceptance checks pass. See ACCEPTANCE.md and reports/acceptance-report.json.
 
-Verified: 51 domain tests, ten complete API journeys, injected mid-batch rollback and safe retry, 34 read requests at four simultaneous clients below two seconds, PDF visual review. Real Gmail connection test recorded Sent after SMTP acceptance.
+Latest evidence: 93 backend/configuration tests, 12 JavaScript regression checks, 75 frontend-handler HTTP requests, ten full API journeys, a 9,459-invoice batch, fault-injection rollback and four-client requests below two seconds. Gmail connection-test Inbox receipt is confirmed.
 
-Confirmed by user: the connection-test email arrived in Gmail Inbox.
-
-Pending: final browser/mobile workflow review (browser access could not be established). Public hosting and backup video are outside literal PS feature coverage and remain optional delivery work.
+Remaining verification: actual browser/mobile/accessibility walkthrough. Browser tool access is disabled; DOM-adapter checks are explicitly not browser verification. Public hosting and pitch backup video remain optional delivery work.

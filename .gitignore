@@ -8,9 +8,7 @@ server.pid
 *.db-shm
 .env.tmp
 backups/
-email-verification.json
-invoice-qa.pdf
-invoice-qa.png
-sample-bank.csv
-premium-audit.json
-premium-ui.json
+/reports/*.json
+/dist/
+.ruff_cache/
+.env.*.tmp
