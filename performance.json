@@ -1,0 +1,144 @@
+{
+  "users": 4,
+  "requests": 34,
+  "max_ms": 1055.86,
+  "all_under_2_seconds": true,
+  "requests_ms": [
+    {
+      "path": "dashboard",
+      "ms": 385.97
+    },
+    {
+      "path": "subscriptions",
+      "ms": 111.25
+    },
+    {
+      "path": "invoices",
+      "ms": 122.14
+    },
+    {
+      "path": "payments",
+      "ms": 41.63
+    },
+    {
+      "path": "reconcile",
+      "ms": 833.32
+    },
+    {
+      "path": "preview",
+      "ms": 1020.61
+    },
+    {
+      "path": "checks",
+      "ms": 43.68
+    },
+    {
+      "path": "bank",
+      "ms": 34.4
+    },
+    {
+      "path": "recovery",
+      "ms": 1055.86
+    },
+    {
+      "path": "products",
+      "ms": 25.47
+    },
+    {
+      "path": "variants",
+      "ms": 25.05
+    },
+    {
+      "path": "taxes",
+      "ms": 25.65
+    },
+    {
+      "path": "plans",
+      "ms": 25.85
+    },
+    {
+      "path": "discounts",
+      "ms": 24.81
+    },
+    {
+      "path": "templates",
+      "ms": 24.38
+    },
+    {
+      "path": "staff",
+      "ms": 23.34
+    },
+    {
+      "path": "mailbox-all",
+      "ms": 25.87
+    },
+    {
+      "path": "dashboard",
+      "ms": 846.2
+    },
+    {
+      "path": "subscriptions",
+      "ms": 20.14
+    },
+    {
+      "path": "invoices",
+      "ms": 21.94
+    },
+    {
+      "path": "payments",
+      "ms": 20.92
+    },
+    {
+      "path": "reconcile",
+      "ms": 746.37
+    },
+    {
+      "path": "preview",
+      "ms": 742.79
+    },
+    {
+      "path": "checks",
+      "ms": 27.49
+    },
+    {
+      "path": "bank",
+      "ms": 21.37
+    },
+    {
+      "path": "recovery",
+      "ms": 663.72
+    },
+    {
+      "path": "products",
+      "ms": 16.86
+    },
+    {
+      "path": "variants",
+      "ms": 17.27
+    },
+    {
+      "path": "taxes",
+      "ms": 16.19
+    },
+    {
+      "path": "plans",
+      "ms": 16.3
+    },
+    {
+      "path": "discounts",
+      "ms": 17.58
+    },
+    {
+      "path": "templates",
+      "ms": 15.56
+    },
+    {
+      "path": "staff",
+      "ms": 16.56
+    },
+    {
+      "path": "mailbox-all",
+      "ms": 16.15
+    }
+  ]
+}

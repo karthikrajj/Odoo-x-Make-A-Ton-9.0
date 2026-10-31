@@ -1,0 +1,35 @@
+{
+  "domain_tests": 51,
+  "api_checks": [
+    "authentication",
+    "roles",
+    "ownership",
+    "GET mutation rejected",
+    "staff creation",
+    "signup",
+    "single-use password reset",
+    "10 complete API demo rehearsals: quote to invoice to split payment to PDF",
+    "Injected mid-batch failure rolled back all invoices and next dates; retry succeeded"
+  ],
+  "demo_rehearsals": 10,
+  "seed_subscriptions": 10050,
+  "http_timings_ms": {
+    "dashboard": 132.43,
+    "subscriptions": 25.82,
+    "invoices": 15.4,
+    "payments": 3.94,
+    "reconcile": 215.12,
+    "preview": 145.44,
+    "checks": 35.35,
+    "bank": 25.05,
+    "recovery": 122.7,
+    "products": 13.08,
+    "variants": 2.31,
+    "taxes": 1.91,
+    "plans": 2.03,
+    "discounts": 2.35,
+    "templates": 1.82,
+    "mailbox-all": 1.69
+  },
+  "all_under_2_seconds": true
+}
