@@ -10,7 +10,7 @@ Built for Odoo x Make-A-Ton 9.0 as a standalone subscription management platform
 - **Prove:** explain invoice calculations and verify billing invariants.
 - **Reconcile:** compare expected charges, invoices and received payments, then resolve discrepancies.
 
-[Judge walkthrough](JUDGING.md) · [Requirements](ACCEPTANCE.md) · [Team](TEAM.md) · [Contributing](CONTRIBUTING.md)
+[Demo walkthrough](DEMO.md) · [Requirements](ACCEPTANCE.md) · [Team](TEAM.md) · [Contributing](CONTRIBUTING.md)
 
 Requirements: Python 3.12. Node 24 is needed only for development checks.
 
@@ -55,4 +55,4 @@ Run `python scripts/check_repository.py` for import, cycle and secret checks. Ru
 ## Files and scope
 `server.py` is the stable launcher. `renewsure/` separates configuration, database/schema, seed data, security, billing, workflows, documents, delivery and HTTP handling. `static/` contains the frontend; `tests/` contains regression checks; `scripts/` contains repository/release tools; `reports/` holds generated evidence. SQLite data persists in `renewsure.db`; recovery copies in `backups/` are preserved.
 
-This remains a local hackathon application. Public hosting needs a hardened server/reverse proxy, HTTPS, review of seeded demo accounts, deployment secret management and operational backups. Live bank feeds and GST compliance certification are outside scope. See CLEANUP.md for the cleanup results and remaining review items.
+This remains a local hackathon application. Public hosting needs a hardened server/reverse proxy, HTTPS, review of seeded demo accounts, deployment secret management and operational backups. Live bank feeds and GST compliance certification are outside scope.

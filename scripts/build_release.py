@@ -21,14 +21,9 @@ ROOT_FILES = [
     "README.md",
     "TEAM.md",
     "CONTRIBUTING.md",
-    "JUDGING.md",
-    "CLEANUP.md",
     "DEMO.md",
     "EMAIL_SETUP.md",
-    "DESIGN.md",
-    "UX-CONTRACT.md",
     "ACCEPTANCE.md",
-    "TRACEABILITY.md",
     "sample-bank.csv",
 ]
 

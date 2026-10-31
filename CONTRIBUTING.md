@@ -10,3 +10,5 @@ Use Python 3.12 and Node 24. No application package installation is needed.
 6. Describe the problem, resulting behavior and checks performed. Use your own GitHub-linked commit email; credit actual shared work with co-author trailers.
 
 Tests use disposable databases and suppress test recipients. The complete suite includes measured performance checks; investigate slow results instead of disabling assertions. See ACCEPTANCE.md for requirement coverage and billing policies in README.md.
+
+Implementation conventions: read form identifiers with getAttribute("id") because named controls can shadow DOM properties. Preserve contracted line identities, prices, taxes and billing cycles unless repricing is explicit. Keep server pagination, INR formatting and role isolation. Expiry closing remains independent of automatic invoice generation.
